@@ -1,2 +1,2 @@
-É doce?,É fruta?,Banana,Churros,É massa?,Lasanha,Frango,
-Banana,É fruta?,Churros,É doce?,Lasanha,É massa?,Frango,
+É doce?,É frito?,Churros,Bolo,É massa?,Lasanha,Frango,
+Churros,É frito?,Bolo,É doce?,Lasanha,É massa?,Frango,

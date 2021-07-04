@@ -21,10 +21,10 @@ public class JogoGourmet {
 		} catch (IOException e) {
 			// cria arvore caso arquivo de elementos não seja encontrado
 			String perguntaRaiz = "É doce?";
-			String perguntaEsquerda = "É fruta?";
+			String perguntaEsquerda = "É frito?";
 			String perguntaDireita = "É massa?";
-			String banana = "Banana";
-			String churros = "Churros";
+			String banana = "Churros";
+			String churros = "Bolo";
 			String lasanha = "Lasanha";
 			String frango = "Frango";
 
@@ -86,7 +86,7 @@ public class JogoGourmet {
 		//adiciona uma nova pergunta e o prato
 		palpite = nodeAtual.getElemento();
 		respostaCerta = perguntar("Desisto, em qual prato você pensou?");
-		novaPergunta = "É " + perguntar(respostaCerta + " é ________ mas " + palpite + " não");
+		novaPergunta = "É " + perguntar(respostaCerta + " é ________ mas " + palpite + " não") + "?";
 
 		nodeAtual.setElemento(novaPergunta);
 		nodeAtual.setEsquerda(new Node(respostaCerta, null, null));

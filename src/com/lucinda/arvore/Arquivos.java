@@ -2,9 +2,11 @@ package com.lucinda.arvore;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class Arquivos {
 	 */
 	public static void escreverArvore(BinaryTree arvore){
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter("itens_gourmet.txt"));
+			BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("itens_gourmet.txt"), "UTF-8"));
 			List<String> preorder = arvore.salvarPreorder(arvore.getRaiz());
 			List<String> inorder = arvore.salvarInorder(arvore.getRaiz());
 			
@@ -42,7 +44,7 @@ public class Arquivos {
 	 * @throws IOException
 	 */
 	public static BinaryTree lerArvore() throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader("itens_gourmet.txt"));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("itens_gourmet.txt"), "UTF-8"));
 		List<String> preorder = Arrays.asList(reader.readLine().split(","));
 		List<String> inorder = Arrays.asList(reader.readLine().split(","));
 		reader.close();

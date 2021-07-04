@@ -1,16 +1,13 @@
 package com.lucinda.arvore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
 
 public class BinaryTree {
 
 	private Node raiz;
 	List<String> preorder = new ArrayList<String>();
 	List<String> inorder = new ArrayList<String>();
-	private static HashMap<String, Integer> nodeMap = new HashMap<>();
 	private static Integer indice = 0;
 
 	/**
@@ -73,9 +70,6 @@ public class BinaryTree {
 	 * @return	-	árvore binária montada
 	 */
 	protected static BinaryTree montarArvore(List<String> inorder, List<String> preorder) {
-		for(int i = 0; i < inorder.size(); i++) {
-			nodeMap.put(inorder.get(i), i);
-		}
 		Node raiz = popularArvore(inorder, preorder, 0, (inorder.size() - 1));
 		BinaryTree arvore = new BinaryTree(raiz);
 		return arvore;
@@ -94,21 +88,21 @@ public class BinaryTree {
 		if(inicio > fim) {
 			return null;
 		}
+		//seleciona o elemento da lista preorder e atribui a um nó
 		String elementoAtual = preorder.get(indice++);
 		Node node = new Node(elementoAtual, null, null);
 		
+		//se true, o nó é uma folha e é retornado
 		if(inicio == fim) {
 			return node;
 		}
 		
-		int inorderIndex = nodeMap.get(node.getElemento());
-		
+		//encontra o index do elemento atual na lista inorder e chava a função recursivamente
+		//para preencher os filhos
+		int inorderIndex = inorder.indexOf(node.getElemento());
 		node.setEsquerda(popularArvore(inorder, preorder, inicio, inorderIndex - 1));
 		node.setDireita(popularArvore(inorder, preorder, inorderIndex + 1, fim));
 		return node;
 	}
-
-
-
 
 }

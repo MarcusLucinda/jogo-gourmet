@@ -73,10 +73,4 @@ public class Node {
 		this.direita = direita;
 	}
 	
-	
-
-
-
-
-
 }

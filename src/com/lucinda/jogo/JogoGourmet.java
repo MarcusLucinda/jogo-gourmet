@@ -1,25 +1,23 @@
-package com.lucinda.gourmet;
+package com.lucinda.jogo;
 
 import java.io.IOException;
-
 import javax.swing.JOptionPane;
-
 import com.lucinda.arvore.Arquivos;
 import com.lucinda.arvore.BinaryTree;
 import com.lucinda.arvore.Node;
 
 public class JogoGourmet {
+	
+	private BinaryTree arvore;
 
 	/**
 	 * Carrega árvore binária de um arquivo existente, se não existir cria uma padrão.
 	 * @return	-	árvore com as perguntas e respostas a serem utilizadas no jogo
 	 */
-	public static BinaryTree carregarArvore() {
-		BinaryTree arvore;
-
+	public JogoGourmet() {
 		try {
 			// busca por arquivo com elementos para construir arvore
-			arvore = Arquivos.lerArvore();
+			this.arvore = Arquivos.lerArvore();
 		} catch (IOException e) {
 			// cria arvore caso arquivo de elementos não seja encontrado
 			String perguntaRaiz = "É doce?";
@@ -42,8 +40,12 @@ public class JogoGourmet {
 			filhaDireita.setDireita(new Node(frango, null, null));
 			raiz.setDireita(filhaDireita);
 
-			arvore = new BinaryTree(raiz);
+			this.arvore = new BinaryTree(raiz);
 		}
+	}
+	
+	
+	public BinaryTree getArvore() {
 		return arvore;
 	}
 
@@ -52,8 +54,8 @@ public class JogoGourmet {
 	 * Dá início ao jogo após o carregamento das perguntas e respostas
 	 * @param arvore	-	árvore binária com as perguntas e respostas
 	 */
-	public static void iniciar(BinaryTree arvore) {
-		Node nodeAtual = arvore.getRaiz();
+	public void iniciar() {
+		Node nodeAtual = this.arvore.getRaiz();
 
 		while(!nodeAtual.isFolha()){
 			if(simOuNao(nodeAtual.getElemento())) {
@@ -76,19 +78,19 @@ public class JogoGourmet {
 	 * 	pergunta que diferencia o palpite da resposta certa.
 	 * @param current	-	nó atual que contém o palpite errado
 	 */
-	public static void novoPrato(Node current) {
+	public void novoPrato(Node nodeAtual) {
 		String palpite;
 		String respostaCerta;
 		String novaPergunta;
 
 		//adiciona uma nova pergunta e o prato
-		palpite = current.getElemento();
+		palpite = nodeAtual.getElemento();
 		respostaCerta = perguntar("Desisto, em qual prato você pensou?");
 		novaPergunta = "É " + perguntar(respostaCerta + " é ________ mas " + palpite + " não");
 
-		current.setElemento(novaPergunta);
-		current.setEsquerda(new Node(respostaCerta, null, null));
-		current.setDireita(new Node(palpite, null, null));
+		nodeAtual.setElemento(novaPergunta);
+		nodeAtual.setEsquerda(new Node(respostaCerta, null, null));
+		nodeAtual.setDireita(new Node(palpite, null, null));
 	}
 
 
@@ -97,7 +99,7 @@ public class JogoGourmet {
 	 * @param pergunta	-	pergunta com resposta sim ou não
 	 * @return	-	true se a resposta for sim, e false se for não
 	 */
-	public static boolean simOuNao(String pergunta) {
+	public boolean simOuNao(String pergunta) {
 		if(JOptionPane.showConfirmDialog(null, pergunta, "Jogo Gourmet", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			return true;
 		}
@@ -109,7 +111,7 @@ public class JogoGourmet {
 	 * @param pergunta	-	pergunta ao jogador
 	 * @return	-	a resposta inserida pelo jogador
 	 */
-	public static String perguntar(String pergunta) {
+	public String perguntar(String pergunta) {
 		String resposta = "";
 		while(resposta.equals("")) {
 			resposta = JOptionPane.showInputDialog(pergunta);
@@ -125,7 +127,7 @@ public class JogoGourmet {
 	 * Exibe painel de mensagem
 	 * @param msg	-	mensagem a ser exibita
 	 */
-	public static void mensagem(String msg) {
+	public void mensagem(String msg) {
 		JOptionPane.showMessageDialog(null, msg, "Jogo Gourmet", JOptionPane.INFORMATION_MESSAGE);
 	}
 
